@@ -19,7 +19,7 @@ class Detector(QtCore.QObject):
 
         self.reader = easyocr.Reader(['en'])
         self.classifier = cv2.CascadeClassifier(
-            os.path.join('Resources', 'haarcascade_russian_plate_number.xml')
+            os.path.join('resources', 'haarcascade_russian_plate_number.xml')
         )
         self.plate = ''
         self.message = None

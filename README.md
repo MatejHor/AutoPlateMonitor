@@ -1,10 +1,7 @@
 # AutoPlateMonitor
 
-AutoPlateMonitor, a Python-based application,   
-seamlessly combines the power of OpenCV for precise license plate detection,   
-PyQt for an intuitive user interface,   
-and EasyOCR for efficient text extraction from plate images.   
-Stay in control and stay informed with our comprehensive car plate monitoring solution
+AutoPlateMonitor, a Python-based application, seamlessly combines the power of OpenCV for precise license plate detection, PyQt for an intuitive user interface, and EasyOCR for efficient text extraction from plate images. 
+Stay in control and stay informed with our comprehensive car plate monitoring solution.
 
 
 ## Instalation
@@ -20,5 +17,5 @@ python main.py
 ```
 
 ## Usefull links
-https://stackoverflow.com/questions/34168172/is-creating-new-thread-for-displaying-pyqt-message-box-several-time-a-good-pract
-https://stackoverflow.com/questions/52473040/i-wanted-to-add-capturing-image-by-using-webcam-to-my-pyqt-gui-window-and-webcam
+[How to create thread from thread](https://stackoverflow.com/questions/34168172/is-creating-new-thread-for-displaying-pyqt-message-box-several-time-a-good-pract)  
+[How to create QObject](https://stackoverflow.com/questions/52473040/i-wanted-to-add-capturing-image-by-using-webcam-to-my-pyqt-gui-window-and-webcam)

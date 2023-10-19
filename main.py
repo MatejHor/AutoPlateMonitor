@@ -1,5 +1,6 @@
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
+import os
+from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
 
 from models.capture import Capture
 from models.converter import Converter
@@ -9,32 +10,34 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         central_widget = QtWidgets.QWidget()
+        icon = os.path.join('resources', 'car_plate.ico')
+        self.setWindowIcon(QtGui.QIcon(icon))
         self.setCentralWidget(central_widget)
+        self.setWindowTitle('AutoPlateMonitor')
 
         self.display_width = 640
         self.display_height = 480
 
-        lay = QtWidgets.QVBoxLayout(central_widget)
-        toolbar_lay = QtWidgets.QToolBar("Detect toolbox")
+        lay = QtWidgets.QGridLayout(central_widget)
+
         self.view = QtWidgets.QLabel()
         self.btn_start = QtWidgets.QPushButton("Start")
         self.btn_stop = QtWidgets.QPushButton("Stop")
+        lay.addWidget(self.view, 0, 0, 1, 2)
+        lay.addWidget(self.btn_start, 1, 0, 1, 2)
+        lay.addWidget(self.btn_stop, 2, 0, 1, 2)
 
         self.input_search = QtWidgets.QLineEdit()
         self.btn_search = QtWidgets.QPushButton('Search for plate')
-        
-        self.label_time = QtWidgets.QLabel()
-        lay.addWidget(self.view, alignment=QtCore.Qt.AlignCenter)
-        lay.addWidget(self.btn_start)
-        lay.addWidget(self.btn_stop)
+        lay.addWidget(self.input_search, 3, 0)
+        lay.addWidget(self.btn_search, 3, 1)
 
-        toolbar_lay.addWidget(self.input_search)
-        toolbar_lay.addWidget(self.btn_search)
-        lay.addWidget(toolbar_lay)
-        
-        lay.addWidget(self.label_time, alignment=QtCore.Qt.AlignCenter)
+        self.select_camera = self.list_cameras()
+        self.action_store = QtWidgets.QPushButton("Store")
+        lay.addWidget(self.select_camera, 4, 0)
+        lay.addWidget(self.action_store, 4, 1)
+
         self.view.setFixedSize(640, 400)
-
         self.show()
         self.init_camera()
 
@@ -67,6 +70,28 @@ class MainWindow(QtWidgets.QMainWindow):
         self.btn_start.clicked.connect(self.capture.start)
         self.btn_stop.clicked.connect(self.capture.stop)
         self.btn_search.clicked.connect(lambda: self.detector.search(self.input_search.text()))
+        self.select_camera.currentIndexChanged.connect(self.change_camera)
+        self.action_store.clicked.connect(self.store_video)
+
+    def list_cameras(self):
+        camera_selector = QtWidgets.QComboBox()
+        self.available_cameras = QtMultimedia.QCameraInfo.availableCameras()
+
+        camera_selector.setStatusTip("Choose camera to take pictures")
+        camera_selector.setToolTip("Select Camera")
+        camera_selector.setToolTipDuration(2500)
+        camera_selector.addItems([camera.description() for camera in self.available_cameras])
+        return camera_selector
+    
+    def change_camera(self, index):
+        camera_position = self.available_cameras[index].position()
+        self.capture.set_camera(camera_position)
+
+    def store_video(self):
+        path = QtWidgets.QFileDialog.getExistingDirectory(self, "Picture Location", "")
+
+        if path:
+            self.capture.store(path)
 
     @QtCore.pyqtSlot(QtGui.QImage)
     def setImage(self, image):
