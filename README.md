@@ -18,7 +18,7 @@ python main.py
 
 ## How it looks
 
-![How it looks](/data/looks.png)
+![How it looks](https://github.com/MatejHor/AutoPlateMonitor/blob/main/data/looks.png?raw=true)
 
 ## Usefull links
 [How to create thread from thread](https://stackoverflow.com/questions/34168172/is-creating-new-thread-for-displaying-pyqt-message-box-several-time-a-good-pract)  
