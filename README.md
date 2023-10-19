@@ -16,6 +16,10 @@ pip install -r requirements.txt
 python main.py
 ```
 
+## How it looks
+
+![How it looks](data\looks.png)
+
 ## Usefull links
 [How to create thread from thread](https://stackoverflow.com/questions/34168172/is-creating-new-thread-for-displaying-pyqt-message-box-several-time-a-good-pract)  
 [How to create QObject](https://stackoverflow.com/questions/52473040/i-wanted-to-add-capturing-image-by-using-webcam-to-my-pyqt-gui-window-and-webcam)

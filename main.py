@@ -76,10 +76,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def list_cameras(self):
         camera_selector = QtWidgets.QComboBox()
         self.available_cameras = QtMultimedia.QCameraInfo.availableCameras()
-
-        camera_selector.setStatusTip("Choose camera to take pictures")
-        camera_selector.setToolTip("Select Camera")
-        camera_selector.setToolTipDuration(2500)
         camera_selector.addItems([camera.description() for camera in self.available_cameras])
         return camera_selector
     
@@ -89,7 +85,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def store_video(self):
         path = QtWidgets.QFileDialog.getExistingDirectory(self, "Picture Location", "")
-
         if path:
             self.capture.store(path)
 
